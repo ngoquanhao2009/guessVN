@@ -3,6 +3,11 @@ import 'leaflet/dist/leaflet.css';
 
 const TOTAL_ROUNDS = 8;
 const STORAGE_KEY = 'guessVN-best-score';
+const BASE_URL = import.meta.env.BASE_URL;
+
+function asset(path) {
+  return `${BASE_URL}${path}`.replace(/\/+/g, '/');
+}
 
 const locations = [
   {
@@ -13,7 +18,7 @@ const locations = [
     lat: 22.3364,
     lng: 103.8438,
     difficulty: 'Khó',
-    photoUrl: '/locations/sa-pa.jpg',
+    photoUrl: asset('locations/sa-pa.jpg'),
     photoTitle: 'Rice Terraces in Sa Pa, Vietnam',
     photoCredit: 'Christopher Crouzet',
     photoLicense: 'CC BY 2.0',
@@ -27,7 +32,7 @@ const locations = [
     lat: 20.9101,
     lng: 107.1839,
     difficulty: 'Khó',
-    photoUrl: '/locations/ha-long.jpg',
+    photoUrl: asset('locations/ha-long.jpg'),
     photoTitle: 'Fishermen at Ha Long Bay, Vietnam',
     photoCredit: 'fotopamas',
     photoLicense: 'CC BY 2.0',
@@ -41,7 +46,7 @@ const locations = [
     lat: 15.8801,
     lng: 108.338,
     difficulty: 'Khó',
-    photoUrl: '/locations/hoi-an.jpg',
+    photoUrl: asset('locations/hoi-an.jpg'),
     photoTitle: 'Rice Farmer in Hoi An, Vietnam',
     photoCredit: 'Christopher Crouzet',
     photoLicense: 'CC BY 2.0',
@@ -55,7 +60,7 @@ const locations = [
     lat: 16.4637,
     lng: 107.5909,
     difficulty: 'Trung bình',
-    photoUrl: '/locations/hue.jpg',
+    photoUrl: asset('locations/hue.jpg'),
     photoTitle: 'Hue, Vietnam 2017',
     photoCredit: 'Eric Seneca Kim',
     photoLicense: 'Public Domain',
@@ -69,7 +74,7 @@ const locations = [
     lat: 16.0544,
     lng: 108.2022,
     difficulty: 'Dễ',
-    photoUrl: '/locations/da-nang.jpg',
+    photoUrl: asset('locations/da-nang.jpg'),
     photoTitle: 'Marine in Da Nang, Vietnam, August 1965',
     photoCredit: 'Unknown Photographer / NARA',
     photoLicense: 'Public Domain',
@@ -83,7 +88,7 @@ const locations = [
     lat: 12.2388,
     lng: 109.1967,
     difficulty: 'Dễ',
-    photoUrl: '/locations/nha-trang.jpg',
+    photoUrl: asset('locations/nha-trang.jpg'),
     photoTitle: 'Nha Trang, Vietnam',
     photoCredit: 'cloud.shepherd',
     photoLicense: 'CC BY 2.0',
@@ -97,7 +102,7 @@ const locations = [
     lat: 10.0452,
     lng: 105.7469,
     difficulty: 'Trung bình',
-    photoUrl: '/locations/can-tho.jpg',
+    photoUrl: asset('locations/can-tho.jpg'),
     photoTitle: 'Cau quang Trung, Quan Ninh kieu Can tho, Vietnam',
     photoCredit: 'trungydang',
     photoLicense: 'CC BY 3.0',
@@ -111,7 +116,7 @@ const locations = [
     lat: 10.2899,
     lng: 103.984,
     difficulty: 'Khó',
-    photoUrl: '/locations/phu-quoc.jpg',
+    photoUrl: asset('locations/phu-quoc.jpg'),
     photoTitle: 'Retraite à Phu Quoc Vietnam',
     photoCredit: 'dancingqueen27',
     photoLicense: 'CC BY 2.0',
