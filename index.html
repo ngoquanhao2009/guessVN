@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đoán Nơi Việt Nam</title>
+  <meta name="description" content="Game đoán vị trí ở Việt Nam theo kiểu GeoGuessr với bản đồ vệ tinh và điểm số khoảng cách." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-orb bg-orb-a"></div>
+  <div class="bg-orb bg-orb-b"></div>
+  <div class="bg-grid"></div>
+
+  <main class="app-shell">
+    <header class="hero-panel glass">
+      <div>
+        <p class="eyebrow">Vietnam-only Geo Challenge</p>
+        <h1>Đoán Nơi Việt Nam</h1>
+        <p class="subtitle">Một game đoán vị trí trong lãnh thổ Việt Nam, nhìn satellite, chốt map, và săn điểm cực cao.</p>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-chip">
+          <span>Vòng</span>
+          <strong id="round-label">1 / 5</strong>
+        </div>
+        <div class="stat-chip">
+          <span>Điểm</span>
+          <strong id="score-label">0</strong>
+        </div>
+        <div class="stat-chip">
+          <span>Kỷ lục</span>
+          <strong id="best-label">0</strong>
+        </div>
+      </div>
+    </header>
+
+    <section class="progress-card glass">
+      <div class="progress-copy">
+        <span class="progress-title">Hành trình hiện tại</span>
+        <p id="progress-text">Quan sát ảnh vệ tinh bí ẩn bên trái, đặt ghim ở bản đồ bên phải rồi chốt đoán.</p>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </section>
+
+    <section class="game-grid">
+      <article class="game-card mystery-card glass">
+        <div class="card-head">
+          <div>
+            <p class="card-kicker">Ảnh thực tế bí ẩn</p>
+            <h2 id="clue-title">Làm nóng bản đồ</h2>
+          </div>
+          <span class="status-pill" id="status-pill">Sẵn sàng</span>
+        </div>
+
+        <div class="scene-frame">
+          <div id="mystery-photo" class="map-pane mystery-photo"></div>
+          <div class="scene-overlay"></div>
+          <div class="scene-hud">
+            <span id="difficulty-chip">Độ khó: trung bình</span>
+            <span id="region-chip">Khu vực: đang ẩn</span>
+          </div>
+          <div class="photo-credit" id="photo-credit">Ảnh thực tế sẽ xuất hiện ở đây.</div>
+        </div>
+
+        <div class="clue-box">
+          <p class="clue-label">Gợi ý</p>
+          <p id="clue-text">Chưa có gợi ý cho vòng đầu tiên. Hãy bấm "Gợi ý" nếu muốn mở khóa manh mối.</p>
+        </div>
+
+        <div class="action-row">
+          <button class="ghost-btn" id="hint-btn" type="button">Gợi ý</button>
+          <button class="ghost-btn" id="clear-btn" type="button">Xóa ghim</button>
+          <button class="primary-btn" id="guess-btn" type="button" disabled>Chốt đoán</button>
+        </div>
+      </article>
+
+      <article class="game-card guess-card glass">
+        <div class="card-head">
+          <div>
+            <p class="card-kicker">Đặt ghim của bạn</p>
+            <h2>Bản đồ Việt Nam</h2>
+          </div>
+          <span class="status-pill live">LIVE</span>
+        </div>
+
+        <div id="guess-map" class="map-pane guess-map"></div>
+
+        <div class="map-footer">
+          <div>
+            <span class="footer-label">Cách chơi</span>
+            <p>Click một điểm trên bản đồ, kéo để chỉnh nếu muốn, rồi chấm điểm theo khoảng cách.</p>
+          </div>
+          <div class="footer-tip">Mục tiêu: đoán thật gần vị trí bí ẩn.</div>
+        </div>
+      </article>
+    </section>
+
+    <footer class="footer-note">
+      Bản đồ vệ tinh từ Esri World Imagery, Leaflet và OpenStreetMap contributors. Giao diện tối ưu cho trải nghiệm giàu tương phản và nhịp chơi nhanh.
+    </footer>
+  </main>
+
+  <section class="modal-backdrop hidden" id="modal-backdrop" aria-hidden="true">
+    <div class="result-modal glass" role="dialog" aria-modal="true" aria-labelledby="result-title">
+      <div class="result-badge" id="result-badge">Kết quả vòng</div>
+      <h3 id="result-title">Kết quả</h3>
+      <p class="result-text" id="result-text"></p>
+
+      <div class="result-grid">
+        <div class="result-stat">
+          <span>Khoảng cách</span>
+          <strong id="distance-result">0 km</strong>
+        </div>
+        <div class="result-stat">
+          <span>Điểm vòng</span>
+          <strong id="round-score-result">0</strong>
+        </div>
+        <div class="result-stat">
+          <span>Tổng điểm</span>
+          <strong id="total-score-result">0</strong>
+        </div>
+      </div>
+
+      <div class="result-actions">
+        <button class="ghost-btn" id="next-btn" type="button">Tiếp tục</button>
+        <button class="primary-btn" id="replay-btn" type="button">Chơi lại</button>
+      </div>
+    </div>
+  </section>
+
+  <script type="module" src="/main.js"></script>
+</body>
+</html>
